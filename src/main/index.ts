@@ -22,6 +22,8 @@ import {
 } from "./commands";
 import { spawnRpc, sendRpc, killRpc } from "./rpc";
 
+import { initUpdater, checkForUpdates } from "./updater";
+
 
 // ─── Window state ────────────────────────────────────────────
 
@@ -236,7 +238,15 @@ app.whenReady().then(() => {
   });
 
   registerIpcHandlers();
-  createWindow();
+  const win = createWindow();
+  initUpdater(win);
+
+  // Check for updates 3 seconds after app starts (non-blocking)
+  setTimeout(() => {
+    if (!is.dev) {
+      checkForUpdates();
+    }
+  }, 3000);
 
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {

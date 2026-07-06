@@ -1,7 +1,7 @@
-appId: com.electron.app
+appId: dev.reasonix.desktop
 electronDownload:
   mirror: https://npmmirror.com/mirrors/electron/
-productName: test-app
+productName: Reasonix Desktop
 directories:
   buildResources: build
 files:
@@ -24,7 +24,7 @@ asarUnpack:
   - "**/node_modules/reasonix/data/**"
   - "**/node_modules/reasonix/dist/**"
 nsis:
-  artifactName: ${name}-${version}-setup.${ext}
+  artifactName: ReasonixDesktop-${version}-setup.${ext}
   shortcutName: ${productName}
   uninstallDisplayName: ${productName}
   createDesktopShortcut: always
@@ -36,7 +36,7 @@ nsis:
   unicode: true # 确保安装脚本支持中文路径
   include: build/installer.nsh # 👈 引用的自定义 NSIS 脚本 实现安装时选择内部软件安装目录
 win:
-  executableName: test-app
+  executableName: ReasonixDesktop
 mac:
   entitlementsInherit: build/entitlements.mac.plist
   extendInfo:
@@ -58,5 +58,7 @@ appImage:
   artifactName: ${name}-${version}.${ext}
 npmRebuild: false
 publish:
-  provider: generic
-  url: https://example.com/auto-updates
+  provider: github
+  owner: suply
+  repo: reasonix-desktop
+  releaseType: release

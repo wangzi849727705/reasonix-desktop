@@ -1,9 +1,11 @@
 <script setup lang="ts">
-// 状态栏
+import UpdateNotification from "./UpdateNotification.vue"
 </script>
 
 <template>
-  <div class="statusbar" />
+  <div class="statusbar">
+    <UpdateNotification />
+  </div>
 </template>
 
 <style scoped>

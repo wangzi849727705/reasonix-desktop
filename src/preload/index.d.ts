@@ -35,12 +35,38 @@ interface ReasonixShell {
   openExternal(url: string): Promise<void>;
 }
 
+interface UpdateInfo {
+  version: string;
+  releaseDate?: string;
+  releaseNotes?: string;
+}
+
+interface ProgressInfo {
+  percent: number;
+  bytesPerSecond: number;
+  transferred: number;
+  total: number;
+}
+
+interface ReasonixUpdate {
+  check(): Promise<void>;
+  download(): Promise<void>;
+  install(): Promise<void>;
+  onChecking(cb: () => void): () => void;
+  onAvailable(cb: (info: UpdateInfo) => void): () => void;
+  onNotAvailable(cb: (info: { version: string }) => void): () => void;
+  onError(cb: (err: { message: string }) => void): () => void;
+  onDownloadProgress(cb: (progress: ProgressInfo) => void): () => void;
+  onDownloaded(cb: (info: UpdateInfo) => void): () => void;
+}
+
 interface ReasonixApi {
   rpc: ReasonixRpc;
   commands: ReasonixCommands;
   dialog: ReasonixDialog;
   app: ReasonixApp;
   shell: ReasonixShell;
+  update: ReasonixUpdate;
 }
 
 declare global {
